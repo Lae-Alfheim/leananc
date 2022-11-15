@@ -7,6 +7,7 @@ help all of you may need help in learning c, or for your computer science, or
 something of the like. :)
 
 # Compiling with gcc 
+
 - -O <filename> Saves the compiled binary with this name. The
             default is to ssave the output as a.out
 - -S Produces a file containing assembly instructions; saved with an .S
@@ -23,7 +24,8 @@ something of the like. :)
 - -z execstack    Enables an executable stack. This option is useful when
             you're learning about buffer overflows.
 
-# Computer Memmory Size {{{Type
+
+# Computer Memory Size
 
 |What Makes It Up        |Name of size          |
 |------------------------|----------------------|
@@ -39,6 +41,64 @@ something of the like. :)
 |1024 ZettaBytes         |YottaByte(YB)         |
 |1024 YottaBytes         |BrontoByte            |
 |1024 BrontoBytes        |GeopByte              |
+
+
+# Segmentation of Memory
+
+Each process (oversimplifie) needs to have access to its own area in memory.
+After all you would not want process overwriting another programs data. So the
+solution is to break down the momory into segments and hand it out to the
+processes as they are needed. The Register are used to store and keep track of
+the current segments. Offset registers are used to keep track of where in the
+segment critical pieces of data are kept. It also describes the memory layout
+within a virtual address space. Some segments are intentionally allocated to
+different regions of the address, within a process to prevent a collision.
+
+Withing some of these sections there are many reginons, for now will stick with
+the main 6.
+
+## .text section
+
+this section, also know as the code segment, corrisponds the text portion of the
+binary executable file. This section is marked as readable and ececutable,
+without any write permissions, generating a violation if attempt made. The size
+if fixed at runtime.
+
+## .data section
+
+The data section is used to store global initialized variables, such as
+        int i = 12;
+
+The size is again fixed at runtime.
+
+## .bss secetion
+
+The bellow stack section is used to store certain types of global non
+initialized variables such as
+        int i;
+
+The size is Fixed at runtime. needt to be readable and writeable but not
+executable.
+
+
+## Heap Section
+
+Used to store dynamically allocated variables and grows from the lower-addressed
+memory to the higher-addressed memory, Controled through malloc, realloc, and
+free. For example
+        int i = malloc(sizeof(int));
+
+This section should be readable and writeable but should not be executable, an
+attacker could easily perform shellcode execution other ways.
+
+
+## Stack Section
+
+Used to keep track of function calls, and grows from higher addressed memory to
+lower. if multithreaded, each thread will have a unique stack. The way the
+memory is addressed allows for buffer overflows to exist.
+
+## MORE SOON...
 
 
 
