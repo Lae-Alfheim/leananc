@@ -1,5 +1,9 @@
 # Lae-Alfheims leananc
 
-learning of c
+__learning of c
 
-__This is the order of the projects and how I learned and played around__
+This is actually the purchase of the ventures and also
+exactly how I found out and also had fun with the foreign language C
+
+<!-- vim: tw=70
+-->
