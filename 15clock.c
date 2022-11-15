@@ -38,7 +38,6 @@ void help() {
 }
 
 
-
 int main(int argc, char **argv) {
     if (signal(SIGINT, signal_handler) == SIG_ERR) {
         fprintf(stderr, "signal function registration failed\n\e[?25h");

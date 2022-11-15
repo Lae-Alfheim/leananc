@@ -65,8 +65,6 @@ int getinput() {
 
 void render() {
     register unsigned int x,y;
-    unsigned int ax = width*4;
-    unsigned int ay = height*4;
 
     unsigned int map[19][19]={
         {1,1,2,2,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
@@ -95,12 +93,6 @@ void render() {
         {1,0,0,1},
         {0,1,1,1}
     };
-    unsigned int player[4][4]={
-        {1,1,1,1},
-        {0,1,1,0},
-        {2,1,1,2},
-        {1,0,0,1}
-    };
 
     for (y=0; y<4*height; y++) {
         for (x=0; x<4*width; x++) {
@@ -111,22 +103,22 @@ void render() {
                 printf("\e[1;47m  \e[0;0m");
             }
             else if ( x/4 == 7 && y/4 == 3) { /* render player */
-                int sx = x-((x/4)*4);
                 int sy = y-((y/4)*4);
-                int sprite = player[sy][sx];
-                if (sprite == 0) {
-                    printf("\e[40m  \e[0m");
-                } else if (sprite == 1) {
-                    printf("\e[43m  \e[0m");
+                if (sy == 3) {
+                    printf("\e[40m        \e[0m");
+                } else if (sy == 2) {
+                    printf("\e[40m        \e[0m");
+                } else if (sy == 2) {
+                    printf("\e[43m        \e[0m");
                 } else {
-                    printf("\e[1;41m  \e[0m");
+                    printf("\e[1;41m        \e[0m");
                 }
+                x = x+3;
 
             }
             else {
                 int sx = x-((x/4)*4);
                 int sy = y-((y/4)*4);
-                int sprite = dirt[sy][sx];
                 if ((x/4)+(playerx-7) > 18 || (y/4)+(playery-4) > 18) { /* rendrers out mountians  */
                     printf("\e[0m^^");
                 } else if (map[(y/4)+(playery-4)][(x/4)+(playerx-7)] == 1) { /* renders green */
@@ -180,36 +172,37 @@ void gameplay() {
     } while (1);
 }
 
-void menu() {
+void printmenu(unsigned int select) {
     register unsigned int i,e;
-    int select=1;
-
-    void printmenu() {
-        fputs("\033c", stdout); /* Clear Screen */
-        printf("\n\n");
-        for (e=1; e<=4; e++) {
-        /* https://www.theurbanpenguin.com/4184-2/
-         * reset color */
-            printf("\033[0;0m");
-            for (i=0; i<width/4; i++) {
-                printf("    ");
-            }
-            if (select == e) {
-                printf("\033[1;37m>");
-            }
-            if (e == 1) {
-                printf("START\033[0;0m\n");
-            } else if (e == 2) {
-                printf("SAVE\033[0;0m\n");
-            } else if (e == 3) {
-                printf("SETTINGS\033[0;0m\n");
-            } else if (e == 4) {
-                printf("QUIT\033[0;0m\n");
-            } else {}
+    fputs("\033c", stdout); /* Clear Screen */
+    printf("\n\n");
+    for (e=1; e<=4; e++) {
+    /* https://www.theurbanpenguin.com/4184-2/
+     * reset color */
+        printf("\033[0;0m");
+        for (i=0; i<width/4; i++) {
+            printf("    ");
         }
+        if (select == e) {
+            printf("\033[1;37m>");
+        }
+        if (e == 1) {
+            printf("START\033[0;0m\n");
+        } else if (e == 2) {
+            printf("SAVE\033[0;0m\n");
+        } else if (e == 3) {
+            printf("SETTINGS\033[0;0m\n");
+        } else if (e == 4) {
+            printf("QUIT\033[0;0m\n");
+        } else {}
     }
+}
+
+void menu() {
+    unsigned int select = 2;
+
     do {
-        printmenu();
+        printmenu(select);
         int input = getinput();
         if (input == 1) {
             if (select <= 1) {
@@ -241,7 +234,6 @@ void menu() {
 
 int main() {
 
-    unsigned char c;
     tcgetattr(STDIN_FILENO, &old_tio);
     new_tio = old_tio;
     new_tio.c_lflag &= (~ICANON & ~ECHO);
