@@ -98,7 +98,15 @@ Used to keep track of function calls, and grows from higher addressed memory to
 lower. if multithreaded, each thread will have a unique stack. The way the
 memory is addressed allows for buffer overflows to exist.
 
-## MORE SOON...
+
+## Environments/Arguments Section
+
+Used to store a copy of system level variables. This may be required by the
+process during runtime. For Example, the pathm, shell name, and hostname. Also
+the command line arguments are stored here. The memory reide in oreder from:
+
+| .text | .data | .bss | Heap | > Unused < | Stack | Env. |
+
 
 
 
