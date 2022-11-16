@@ -106,7 +106,7 @@ process during runtime. For Example, the pathm, shell name, and hostname. Also
 the command line arguments are stored here. The memory reide in oreder from:
 
 | .text | .data | .bss | Heap | > Unused < | Stack | Env. |
-
+|-------|-------|------|------|------------|-------|------|
 
 
 
