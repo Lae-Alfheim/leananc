@@ -105,6 +105,7 @@ Used to store a copy of system level variables. This may be required by the
 process during runtime. For Example, the pathm, shell name, and hostname. Also
 the command line arguments are stored here. The memory reide in oreder from:
 
+| Lower |||||| Upper |
 | .text | .data | .bss | Heap | > Unused < | Stack | Env. |
 |-------|-------|------|------|------------|-------|------|
 
