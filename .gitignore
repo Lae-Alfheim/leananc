@@ -1,4 +1,6 @@
 .ls
 a.out
+/*/a.out
+/*/*/a.out
 server
 client
