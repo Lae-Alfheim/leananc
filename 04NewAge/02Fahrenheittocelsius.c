@@ -3,21 +3,15 @@
 #include <stdio.h>
 
 
+#define LOWER 0     /* Lower limit of the table */
+#define UPPER 300   /* upper limit */
+#define STEP 20     /* step size */
+
 int main() {
-    int fahr, celsius;
-    int lower, upper, step;
-
-    lower = 0;      /* lower limit of temerature scale */
-    upper = 300;    /* upper limit */
-    step = 20;      /* step size */
-
-    fahr = lower;
     printf("Fahrenheit\tCelsius\n");
-    while (fahr <= upper) {
-        celsius = 5 * (fahr-32) / 9;
-        printf("%d\t\t%d\n", fahr, celsius);
-        fahr = fahr + step;
-    }
+
+    for (int fahr = LOWER; fahr <=UPPER; fahr += STEP) {
+        printf("%3d\t\t%6.1f\n", fahr, (5.0/9.0) * (fahr-32)); }
 }
 
 // vim: tw=60
