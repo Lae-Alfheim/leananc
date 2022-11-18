@@ -24,6 +24,11 @@
  * backout. The thing EOF in the while loop, is a integer
  * defined in <stdio.h>, and stands for end of file.
  *
+ * The "wordCounting();" function outputs how many lines
+ * words and characters, take a look to see how it works.
+ *
+ * This line sets all three variables to zero:
+ *      num1 = numw = numc = 0;
  */
 
 
@@ -49,13 +54,50 @@ void characterCounting() {
     for (numc = 0; getchar() != EOF; ++numc) { ; }
     /* Use Control-D to stop or Conrtol-Z for Windows*/
 
-    printf("%ld\n", numc);
+    printf("\n%ld\n", numc);
 }
+
+void lineCounting() {
+    printf("Line Counting\n");
+
+    int c;
+    int numl = 0;
+
+    while ((c = getchar()) != EOF) {
+        if (c == '\n') { numl++; }
+    }
+    printf("\n%d\n", numl);
+}
+
+
+#define IN      1 /* inside a word*/
+#define OUT     0 /* outside a word */
+
+void wordCounting() {
+    int c, numl, numw, numc, state;
+
+    state = OUT;
+    numl = numw = numc = 0;
+    while ((c = getchar()) != EOF) {
+        numc++;
+        if (c == '\n') { numl++; }
+        if (c == ' ' || c == '\n' || c == '\t') {
+            state = OUT;
+        } else if (state == OUT) {
+            state = IN;
+            numw++;
+        }
+    }
+    printf("\nLines %3d\t Words %3d\t Characters %3d\n", numl, numw, numc);
+}
+
+
 
 int main() {
     //simpleInputOutput();
-    printf("%d", EOF);
-    characterCounting();
+    //characterCounting();
+    //lineCounting();
+    wordCounting();
 }
 
 
